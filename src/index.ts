@@ -8,6 +8,7 @@ import {config as dotenv} from "dotenv";
 
 // Routers 
 import UserRoutes from "./routers/UserRoutes";
+import AuthRoutes from "./routers/AuthRoutes";
 
 class App {
   public app: Application;
@@ -34,6 +35,7 @@ class App {
     });
 
     this.app.use("/api/v1/users", UserRoutes);
+    this.app.use("/api/v1/auth", AuthRoutes);
   }
 }
 
@@ -41,8 +43,7 @@ const port: number = 8000;
 const app = new App().app;
 app.listen(port, () => {
   console.log(`This app running on port : ${port}`);
-  console.log(`ENV host : ${process.env.DB_HOST}`);
-
+  // console.log(`ENV host : ${process.env.DB_HOST}`);
 });
 
 
