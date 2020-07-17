@@ -47,18 +47,3 @@ app.listen(port, () => {
   console.log(`This app running on port : ${port}`);
   // console.log(`ENV host : ${process.env.DB_HOST}`);
 });
-
-
-
-
-
-
-
-// const app = express();
-
-// app.route('/').get((req,res) => {
-//     res.send('Hi all, this is my first router !');
-// });
-
-// // jalankan servernya
-// app.listen(8000);
