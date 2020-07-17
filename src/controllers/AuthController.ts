@@ -43,8 +43,8 @@ class AuthController{
     return res.send("Auth failed !");
   }
 
-  profile = async (req: Request, res: Response): Promise<Response> => {
-    return res.send('Ini adalah endpoint profile, Anda Sudah terauthentikasi');
+  profile = (req: Request, res: Response): Response => {
+    return res.send(req.app.locals.credential);
   }
 }
 
