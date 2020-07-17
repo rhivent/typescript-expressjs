@@ -13,7 +13,7 @@ export const auth = (req: Request, res: Response, next: NextFunction): any => {
 
     if(credential){
       req.app.locals.credential = credential;
-      next();
+      return next();
     }
 
     return res.send("token invalid");

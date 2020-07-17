@@ -1,7 +1,6 @@
 import { Request, Response } from 'express';
 import Authentication from "../utils/Authentication";
-import { compare } from 'bcrypt';
-const db = require('../db/models/index');
+const db = require('../db/models');
 
 class AuthController{
   register = async (req: Request, res: Response): Promise<Response> => {

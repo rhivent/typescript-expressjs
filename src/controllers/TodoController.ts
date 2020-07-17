@@ -1,21 +1,75 @@
 import { Request, Response } from 'express';
 import IController from "./ControllerInterface";
 
+const db = require("../db/models");
+
 class TodoController implements IController{
-  index(req: Request, res: Response<any>): Response<any> {
-    return res.send('index todo');
+  index = async (req: Request, res: Response<any>): Promise<Response> => {
+    const { id } = req.app.locals.credential;
+
+    const todos = await db.todo.findAll({
+      where : { user_id : id },
+      attributes: ['id','description']
+    });
+
+    return res.send({
+      data : todos,
+      message : "success"
+    });
   }
-  create(req: Request, res: Response<any>): Response<any> {
-    return res.send('create todo');
+  create = async (req: Request, res: Response<any>): Promise<Response> => {
+    const { id } = req.app.locals.credential;
+    const { description } = req.body;
+
+    const todo = await db.todo.create({
+      user_id : id,
+      description
+    });
+
+    return res.send({
+      data : todo,
+      message : "todo created"
+    });
   }
-  show(req: Request, res: Response<any>): Response<any> {
-    return res.send('show todo');
+  show = async (req: Request, res: Response<any>): Promise<Response> => {
+    const { id : user_id } = req.app.locals.credential;
+    const { id } = req.params;
+
+    const todo = await db.todo.findOne({
+      where : { id, user_id},
+    });
+    return res.send({
+      data : todo,
+      message : "success"
+    });
   }
-  update(req: Request, res: Response<any>): Response<any> {
-    return res.send('update todo');
+  update = async (req: Request, res: Response<any>): Promise<Response> => {
+    const { id : user_id } = req.app.locals.credential;
+    const { id } = req.params;
+    const { description } = req.body;
+
+    await db.todo.update({
+      user_id : id,
+      description
+    },{ 
+      where : { id, user_id }
+    });
+
+    return res.send({
+      data : "",
+      message : "todo updated"
+    });
   }
-  delete(req: Request, res: Response<any>): Response<any> {
-    return res.send('delete todo');
+  delete = async (req: Request, res: Response<any>): Promise<Response> => {
+    const { id : user_id } = req.app.locals.credential;
+    const { id } = req.params;
+    await db.todo.destroy({
+      where : { id, user_id }
+    });
+    return res.send({
+      data : "",
+      message : "todo deleted"
+    });
   }
   
 }
