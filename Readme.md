@@ -1,4 +1,10 @@
 ---
+## Architecture
+- API layer : route, controller 
+- Service layer : bagian logic dan apa yang harus dilakukan
+- Repository layer : bagian kepentingan utk memanggil model
+- Data access layer : models
+- Database
 
 ## Configuration koneksi database data melalui .sequelizerc
 ```sh
